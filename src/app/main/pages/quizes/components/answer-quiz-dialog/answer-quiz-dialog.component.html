@@ -1,0 +1,81 @@
+<h2 mat-dialog-title>Calificar proveedores</h2>
+<mat-dialog-content class="mat-typography">
+  <mat-stepper #stepper linear>
+    <mat-step [stepControl]="resultId">
+      <ng-template matStepLabel
+        >Selecciona al proveedor a evaluar 1/2</ng-template
+      >
+      <div class="row">
+        <mat-radio-group [formControl]="resultId">
+          <mat-radio-button
+            color="primary"
+            *ngFor="let provider of providers"
+            [value]="provider.id"
+            >{{ provider.provider.name }}</mat-radio-button
+          >
+        </mat-radio-group>
+      </div>
+    </mat-step>
+    <mat-step [stepControl]="form">
+      <ng-template matStepLabel>Contesta las preguntas 2/2</ng-template>
+      <div [formGroup]="form">
+        <p>¿El proveedor cumple con la calidad?</p>
+        <div class="row scores">
+          <mat-radio-group formControlName="one">
+            <mat-radio-button
+              color="primary"
+              *ngFor="let score of scores"
+              [value]="score.id"
+              >{{ score.name }}</mat-radio-button
+            >
+          </mat-radio-group>
+        </div>
+        <p>¿El proveedor cumplió con en el tiempo de entrega?</p>
+        <div class="row scores">
+          <mat-radio-group formControlName="two">
+            <mat-radio-button
+              color="primary"
+              *ngFor="let score of scores"
+              [value]="score.id"
+              >{{ score.name }}</mat-radio-button
+            >
+          </mat-radio-group>
+        </div>
+        <p>Atención y asesorías</p>
+        <div class="row scores">
+          <mat-radio-group formControlName="three">
+            <mat-radio-button
+              color="primary"
+              *ngFor="let score of scores"
+              [value]="score.id"
+              >{{ score.name }}</mat-radio-button
+            >
+          </mat-radio-group>
+        </div>
+        <p>Garantía</p>
+        <div class="row scores">
+          <mat-radio-group formControlName="four">
+            <mat-radio-button
+              color="primary"
+              *ngFor="let score of scores"
+              [value]="score.id"
+              >{{ score.name }}</mat-radio-button
+            >
+          </mat-radio-group>
+        </div>
+      </div>
+    </mat-step>
+  </mat-stepper>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-flat-button [mat-dialog-close]="false">Cancelar</button>
+  <button
+    mat-flat-button
+    color="primary"
+    (click)="onEvaluate()"
+    [class.spinner]="isLoading"
+    [disabled]="resultId.invalid || form.invalid || isLoading"
+  >
+    Aceptar
+  </button>
+</mat-dialog-actions>

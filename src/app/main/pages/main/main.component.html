@@ -1,0 +1,10 @@
+<mat-drawer-container>
+  <mat-drawer [mode]="!isSmall ? 'side' : 'over'" [opened]="!isSmall" #matDrawer color="primary">
+    <app-sidenav color="primary"></app-sidenav>
+  </mat-drawer>
+  <mat-drawer-content>
+    <app-toolbar [isSmall]="isSmall"></app-toolbar>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>
+<app-toast></app-toast>

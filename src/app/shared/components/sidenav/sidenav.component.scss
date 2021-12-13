@@ -1,0 +1,24 @@
+@import 'colorss';
+
+.info {
+    padding: 10px;
+    font-size: 20px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+img{
+    padding: 5px 0;
+    border-radius: 5px;
+    background-color: $primary;
+}
+
+
+.space {
+    margin:10px 0;
+}
+
+.icon-nav{
+    text-align: left !important;
+    padding-left: 30px !important;
+}

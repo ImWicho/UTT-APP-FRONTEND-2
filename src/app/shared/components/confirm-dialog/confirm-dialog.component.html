@@ -1,0 +1,17 @@
+<mat-dialog-content class="mat-typography">
+  <div class="row center-xs">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <mat-icon [svgIcon]="data.icon"></mat-icon>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <h2 mat-dialog-title>{{ data.title }}</h2>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <h3>{{ data.desc }}</h3>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-flat-button [mat-dialog-close]="false">Cancelar</button>
+  <button mat-flat-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>Aceptar</button>
+</mat-dialog-actions>

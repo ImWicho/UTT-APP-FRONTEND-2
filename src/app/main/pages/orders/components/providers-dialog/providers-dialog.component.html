@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>Proveedores</h2>
+<mat-dialog-content class="mat-typography">
+  <mat-chip-list class="mat-chip-list-stacked" aria-label="Color selection">
+    <mat-chip *ngFor="let chip of providers" selected color="primary">
+      {{chip.name}}
+    </mat-chip>
+  </mat-chip-list>
+  
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-flat-button color="primary" [mat-dialog-close]="true">Cerrar</button>
+</mat-dialog-actions>

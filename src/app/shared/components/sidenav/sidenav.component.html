@@ -1,0 +1,44 @@
+<div>
+  <div class="row center-xs" style="margin: 64px 0">
+    <div class="col" style="width: 90%">
+      <div class="row middle-xs center-xs">
+        <div class="col-xs-5">
+          <img
+            src="assets/img/pet.png"
+            class="img-responsive"
+            alt=""
+            srcset=""
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 info">{{ user?.email }}</div>
+        <div class="col-xs-12 middle-xs">{{ user?.area?.name }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="row space" *ngFor="let view of user?.area?.views">
+    <button mat-flat-button color="primary" class="col-xs-12 icon-nav" [routerLink]="view.path">
+      <mat-icon [svgIcon]="view.icon"></mat-icon>
+      {{ view.name }}
+    </button>
+  </div>
+  <!-- <div class="row space">
+    <button mat-flat-button color="primary" class="col-xs-12 icon-nav" routerLink="/main/orders">
+      <mat-icon svgIcon="order-bool-ascending-variant"></mat-icon>
+      Ordenes
+    </button>
+  </div>
+  <div class="row space">
+    <button mat-flat-button color="primary" class="col-xs-12 icon-nav" routerLink="/main/quizes">
+      <mat-icon svgIcon="order-bool-ascending-variant"></mat-icon>
+      Encuestas
+    </button>
+  </div>
+  <div class="row space">
+    <button mat-flat-button color="primary" class="col-xs-12 icon-nav" routerLink="/main/results">
+      <mat-icon svgIcon="order-bool-ascending-variant"></mat-icon>
+      Resultados
+    </button>
+  </div> -->
+</div>

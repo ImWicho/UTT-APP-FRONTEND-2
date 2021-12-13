@@ -1,0 +1,14 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="toogleSideNav()">
+   <mat-icon svgIcon="menu"></mat-icon>
+ </button>
+ <span class="spacer"></span>
+ <button mat-icon-button [matMenuTriggerFor]="menu">
+   <mat-icon svgIcon="account-circle"></mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <!-- <button mat-menu-item><mat-icon svgIcon="cog"></mat-icon>Settings</button> -->
+    <button mat-menu-item (click)="onLogOut()"><mat-icon svgIcon="exit-to-app"></mat-icon>Cerrar sesión</button>
+  </mat-menu>
+
+</mat-toolbar>

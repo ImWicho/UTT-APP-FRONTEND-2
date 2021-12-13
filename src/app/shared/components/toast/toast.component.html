@@ -1,0 +1,39 @@
+<div class="wrap-toasts">
+  <div class="container-toast">
+    <ng-container *ngFor="let toast of service.toasts.reverse()">
+      <div class="toast row"
+        [ngClass]="{
+          'toast-danger': toast.type === types.DANGER,
+          'toast-warning': toast.type === types.WARNING,
+          'toast-success': toast.type === types.SUCCESS,
+          'toast-simple' : !toast.useDefaultImage && toast.resource === null
+        }">
+        <div class="toast__image-wrap row middle-xs" *ngIf="toast.useDefaultImage || toast.resource !== null">
+          <!-- <div class="toast__img" [ngStyle]="{
+            'background-image' : 'url(' + (toast.useDefaultImage ? '' : toast.resource) + ')'
+          }"></div> -->
+          <img [src]="toast.resource" class="img-responsive" alt="" srcset="">
+        </div>
+        <div class="toast__info-wrap">
+          <div class="toast__info">
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="toast__title">{{ toast.title }}</div>
+              </div>
+              <div class="col-xs-6 end-xs">
+                <mat-icon class="toast__close" (click)="service.hideToast(toast.id)">close</mat-icon>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="toast__text">
+                  {{ toast.description }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

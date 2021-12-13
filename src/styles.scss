@@ -1,0 +1,47 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'grid';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Poppins, "Helvetica Neue", sans-serif; }
+
+mat-form-field{ width: 100%; }
+
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+
+.spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: white;
+  animation: spinner .8s linear infinite;
+}
+
+.img-responsive{
+  width: 100%;
+  height: auto;
+}
+
+table{
+  width: 100%;
+}
+
+.table-responsive{
+  display: block;
+  overflow-x: auto;
+}
+
+@media (max-width: 1024px){
+  table, mat-paginator{
+    min-width: 600px;
+  }
+}

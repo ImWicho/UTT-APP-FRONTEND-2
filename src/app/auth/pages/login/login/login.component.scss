@@ -1,0 +1,19 @@
+@import 'colorss';
+
+.wrap-login-container{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $primary;
+}
+
+.login-card{
+    max-width: 600px;
+    min-width: 400px;
+
+    img{
+        max-width: 300px;
+        margin-bottom: 20px;
+    }
+}
