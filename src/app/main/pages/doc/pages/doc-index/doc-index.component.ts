@@ -47,6 +47,12 @@ export class DocIndexComponent implements OnInit, OnDestroy {
     }
   }
 
+  async openDialogEdit(element: any): Promise<void>{
+    if(await this.dialogService.onShowDialogData(DocDialogComponent, element, { width: 800 }).toPromise()){
+      this.onGetDocs();
+    }
+  }
+
   async updateStatus(element: any): Promise<void>{
     if(await this.dialogService.onShowConfirmation(
       {
@@ -77,7 +83,6 @@ export class DocIndexComponent implements OnInit, OnDestroy {
   onGetDocs(): void{
     this.service.onGetDocuments().subscribe((data) => {
       this.docs = data;
-      console.log(this.docs);
       this.setData();
     });
   }

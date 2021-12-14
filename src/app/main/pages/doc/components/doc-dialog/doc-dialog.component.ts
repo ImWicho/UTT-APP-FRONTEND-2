@@ -1,8 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TOAST_TYPE } from '@components/toast/i-toast';
 import { NotificationService } from '@services/notification.service';
 import { DocService } from '../../services/doc.service';
@@ -18,9 +18,24 @@ export class DocDialogComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private service: DocService,
               private dialog: MatDialogRef<DocDialogComponent>,
-              private notificationService: NotificationService) { this.buildForm(); }
+              private notificationService: NotificationService,
+              @Inject(MAT_DIALOG_DATA) public data: any) { this.buildForm(); }
 
   ngOnInit(): void {
+
+    if(this.data){
+      console.log(this.data);
+
+      this.form.patchValue(
+        {
+          ...this.data,
+          documentosRelacionados : this.data.documentos_relacionados,
+          tipoResguardo : this.data.tipo_resguardo,
+          disposicionFinal : this.data.disposicion_final,
+        }
+        );
+
+    }
   }
 
   sendData(): void{
@@ -31,21 +46,39 @@ export class DocDialogComponent implements OnInit {
       conservacion : new DatePipe('en').transform(this.form.get('conservacion')?.value, 'YYYY-MM-dd')
     };
 
-    this.service.onSaveDocument(data).subscribe((res) => {
-      this.notificationService.onShowNotification({
-        title: 'Documento creado',
-        desc: 'El documento se ha creado correctamente.',
-        type: TOAST_TYPE.SUCCESS
+    if(!this.data){
+      this.service.onSaveDocument(data).subscribe((res) => {
+        this.notificationService.onShowNotification({
+          title: 'Documento creado',
+          desc: 'El documento se ha creado correctamente.',
+          type: TOAST_TYPE.SUCCESS
+        });
+        this.dialog.close(true);
+      }, (error: HttpErrorResponse) => {
+        this.isLoading = false;
+        this.notificationService.onShowNotification({
+          title: 'Ocurrió un error',
+          desc: 'Intente más tarde o contacte a soporte.',
+          type: TOAST_TYPE.DANGER
+        });
       });
-      this.dialog.close(true);
-    }, (error: HttpErrorResponse) => {
-      this.isLoading = false;
-      this.notificationService.onShowNotification({
-        title: 'Ocurrió un error',
-        desc: 'Intente más tarde o contacte a soporte.',
-        type: TOAST_TYPE.DANGER
+    }else{
+      this.service.onUpdateDocument({ ...data, id: this.data.id }).subscribe((res) => {
+        this.notificationService.onShowNotification({
+          title: 'Documento actualizado',
+          desc: 'El documento se ha actualizado correctamente.',
+          type: TOAST_TYPE.SUCCESS
+        });
+        this.dialog.close(true);
+      }, (error: HttpErrorResponse) => {
+        this.isLoading = false;
+        this.notificationService.onShowNotification({
+          title: 'Ocurrió un error',
+          desc: 'Intente más tarde o contacte a soporte.',
+          type: TOAST_TYPE.DANGER
+        });
       });
-    });
+    }
   }
 
   buildForm(): void{

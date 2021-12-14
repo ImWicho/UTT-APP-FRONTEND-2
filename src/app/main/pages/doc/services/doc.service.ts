@@ -18,6 +18,10 @@ export class DocService {
     return this.http.post<any>(`${environment.API_URL}/api/v1/docs`, data);
   }
 
+  onUpdateDocument(data: any): Observable<any>{
+    return this.http.put<any>(`${environment.API_URL}/api/v1/docs/${data.id}`, data);
+  }
+
   onUpdateDocumentStatus(data: any): Observable<any>{
     return this.http.post<any>(`${environment.API_URL}/api/v1/update-doc`, data);
   }
