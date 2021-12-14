@@ -4,7 +4,11 @@
       <h2>Documentos</h2>
     </div>
   </div>
-  <div class="row end-xs">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 row middle-xs between-xs">
+      <button mat-flat-button color="primary" (click)="openDialog()">Crear documento</button>
+      <button mat-icon-button (click)="onGetDocs()"><mat-icon svgIcon="refresh"></mat-icon></button>
+    </div>
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
       <mat-form-field appearance="standard">
         <mat-label>Buscar</mat-label>
@@ -19,17 +23,42 @@
       
           <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-            <td mat-cell *matCellDef="let row">  </td>
+            <td mat-cell *matCellDef="let row"> {{ row.id }} </td>
           </ng-container>
       
-          <ng-container matColumnDef="name">
+          <ng-container matColumnDef="nombre">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE </th>
-            <td mat-cell *matCellDef="let row">  </td>
+            <td mat-cell *matCellDef="let row"> {{ row.nombre | uppercase }} </td>
           </ng-container>
 
-          <ng-container matColumnDef="statusName">
+          <ng-container matColumnDef="responsable">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> RESPONSABLE </th>
+            <td mat-cell *matCellDef="let row"> {{ row.responsable | uppercase }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="tipo_resguardo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> RESGUARDO </th>
+            <td mat-cell *matCellDef="let row"> {{ row.tipo_resguardo | uppercase }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="areas">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> AREA </th>
+            <td mat-cell *matCellDef="let row"> {{ row.areas | uppercase }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="codigo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> CODIGO </th>
+            <td mat-cell *matCellDef="let row"> {{ row.codigo | uppercase }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="version">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> VERSION </th>
+            <td mat-cell *matCellDef="let row"> {{ row.version | uppercase }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> ESTATUS </th>
-            <td mat-cell *matCellDef="let row">  </td>
+            <td mat-cell *matCellDef="let row"> {{ row.status === 'pendient' ? 'PENDIENTE' : '' }} </td>
           </ng-container>
 
           <ng-container matColumnDef="options">
@@ -58,8 +87,8 @@
           </tr>
         </table>
       
-        <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of docs"></mat-paginator>
       </div>
+      <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of docs"></mat-paginator>
       
     </div>
   </div>

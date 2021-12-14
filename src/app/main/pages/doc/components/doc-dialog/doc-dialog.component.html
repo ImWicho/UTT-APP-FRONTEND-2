@@ -1,0 +1,88 @@
+<h2 mat-dialog-title>Crear documento</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="form">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input matInput placeholder="Nombre" formControlName="nombre">
+        </mat-form-field>    
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <mat-form-field appearance="outline">
+          <mat-label>Tipo</mat-label>
+          <input matInput placeholder="Tipo" formControlName="tipo">
+        </mat-form-field>    
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <mat-form-field appearance="outline">
+          <mat-label>Version</mat-label>
+          <input matInput placeholder="Version" formControlName="version">
+        </mat-form-field>    
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <mat-form-field appearance="outline">
+          <mat-label>Responsable</mat-label>
+          <input matInput placeholder="Responsable" formControlName="responsable">
+        </mat-form-field>    
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <mat-form-field appearance="outline">
+          <mat-label>Areas</mat-label>
+          <input matInput placeholder="Areas" formControlName="areas">
+        </mat-form-field>    
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <mat-form-field appearance="outline">
+          <mat-label>Documentos relacionados</mat-label>
+          <input matInput placeholder="Documentos relacionados" formControlName="documentosRelacionados">
+        </mat-form-field>    
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <mat-form-field appearance="outline">
+          <mat-label>Código</mat-label>
+          <input matInput placeholder="Código" formControlName="codigo">
+        </mat-form-field>    
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <mat-form-field appearance="outline">
+          <mat-label>Conservación</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="conservacion" readonly>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>  
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <mat-form-field appearance="outline">
+          <mat-label>Tipo resguardo</mat-label>
+          <input matInput placeholder="Tipo resguardo" formControlName="tipoResguardo">
+        </mat-form-field>    
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <mat-form-field appearance="outline">
+          <mat-label>Disposición</mat-label>
+          <input matInput placeholder="Disposición" formControlName="disposicionFinal">
+        </mat-form-field>    
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <p>Sustituye: </p>
+        <mat-radio-group formControlName="sustituye">
+          <mat-radio-button [value]="true">Si</mat-radio-button>
+          <mat-radio-button style="margin-left: 10px;" [value]="false">No</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-flat-button [mat-dialog-close]="false">Cancelar</button>
+  <button
+    mat-flat-button
+    color="primary"
+    [class.spinner]="isLoading"
+    [disabled]="form.invalid || isLoading"
+    (click)="sendData()"
+  >
+    Aceptar
+  </button>
+</mat-dialog-actions>

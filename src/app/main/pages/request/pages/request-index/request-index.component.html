@@ -4,7 +4,11 @@
       <h2>Solicitudes</h2>
     </div>
   </div>
-  <div class="row end-xs">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 row middle-xs between-xs">
+      <button mat-flat-button color="primary" (click)="openDialog()">Crear solicitud</button>
+      <button mat-icon-button (click)="onGetDocs()"><mat-icon svgIcon="refresh"></mat-icon></button>
+    </div>
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
       <mat-form-field appearance="standard">
         <mat-label>Buscar</mat-label>

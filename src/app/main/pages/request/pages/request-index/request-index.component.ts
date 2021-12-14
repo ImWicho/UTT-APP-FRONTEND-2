@@ -8,6 +8,7 @@ import { NotificationService } from '@services/notification.service';
 import { IUser } from 'app/main/interfaces/i-user';
 import { AppStateWithUser } from 'app/main/store/userStore/reducers';
 import { Subscription } from 'rxjs';
+import { RequestDialogComponent } from '../../components/request-dialog/request-dialog.component';
 import { RequestService } from '../../services/request.service';
 
 @Component({
@@ -30,45 +31,18 @@ export class RequestIndexComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.onGetDocs();
+    this.subs = this.store.select('user').subscribe((data) => this.user = data.user);
+  }
 
-    // this.subs = this.store.select('user').subscribe((data) => this.user = data.user);
+  async openDialog(): Promise<void>{
+    if(await this.dialogService.onShowDialog(RequestDialogComponent, { width: 500 }).toPromise()){
+      console.log(true);
+    }
   }
 
   ngOnDestroy(): void{
-    // this.subs.unsubscribe();
+    this.subs.unsubscribe();
   }
-
-  // async onRestoreProvider(data: any): Promise<void>{
-  //   if(await this.dialogService.onShowConfirmation(
-  //     {
-  //       title: '¿Estás seguro de solicitar la reevaluación?',
-  //       desc: 'El proveedor volverá a un estatus "No calificado"',
-  //       icon : 'alert-circle-outline'
-  //     }).toPromise()){
-  //       this.onReevaluateProvider(data.results[0].id);
-
-  //     }
-  // }
-
-  // async onReevaluateProvider(resultId: number | string): Promise<void>{
-  //   try{
-  //     this.store.dispatch( isLoading() );
-  //     await this.service.onRestoreProvider(resultId).toPromise();
-  //     this.store.dispatch( stopLoading() );
-  //     this.notificationService.onShowNotification({
-  //       title: 'Proveedor restaurado',
-  //       desc: 'El proveedor puede ser evaluado nuevamente.',
-  //       type: TOAST_TYPE.SUCCESS
-  //     });
-  //     this.onGetProviders();
-  //   }catch(error){
-  //     this.notificationService.onShowNotification({
-  //       title: 'Ocurrió un error',
-  //       desc: 'Intente más tarde o contacte a soporte.',
-  //       type: TOAST_TYPE.DANGER
-  //     });
-  //   }
-  // }
 
   onGetDocs(): void{
     this.service.onGetRequests().subscribe((data) => {
@@ -76,14 +50,6 @@ export class RequestIndexComponent implements OnInit, OnDestroy {
       this.setData();
     });
   }
-
-  // filterData(data: any): void{
-  //   this.providers = data.map((x: any) => ({
-  //       ...x,
-  //       statusName: x.status.name
-  //     }));
-  //   this.setData();
-  // }
 
   setData(): void{
     this.dataSource = new MatTableDataSource();
