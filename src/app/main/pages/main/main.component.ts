@@ -24,16 +24,16 @@ export class MainComponent implements OnInit {
               private dataService: DataService){}
 
   ngOnInit(): void{
-    // this.store.select('ui').subscribe((data) => this.isSmall = data.isResponsive);
-    // this.sidenavService.toggle$.subscribe(() => this.drawer.toggle());
-    // this.store.dispatch( isLoading());
-    // this.userService.onGetUser().subscribe((data) => {
-    //   this.store.dispatch( saveUser({ user: data }) );
-    //   this.store.dispatch( stopLoading());
-    //   this.dataService.onSaveCookie('views', JSON.stringify(data.area.views.map((x: any) => x.path)));
-    // }, (error: HttpErrorResponse) => {
-    //   this.store.dispatch( stopLoading());
-    // });
+    this.store.select('ui').subscribe((data) => this.isSmall = data.isResponsive);
+    this.sidenavService.toggle$.subscribe(() => this.drawer.toggle());
+    this.store.dispatch( isLoading());
+    this.userService.onGetUser().subscribe((data) => {
+      this.store.dispatch( saveUser({ user: data }) );
+      this.store.dispatch( stopLoading());
+      this.dataService.onSaveCookie('views', JSON.stringify(data.area.views.map((x: any) => x.path)));
+    }, (error: HttpErrorResponse) => {
+      this.store.dispatch( stopLoading());
+    });
   }
 
 }

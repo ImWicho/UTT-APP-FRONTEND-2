@@ -26,19 +26,17 @@ export class ToolbarComponent implements OnInit {
   }
 
   onLogOut(): void{
-    this.router.navigate(['/auth/login']);
-    // this.authService.onLogOut().subscribe(() => {
-    //   this.toastService.addToast({
-    //     title: 'Hasta la próxima',
-    //     timeOut: 3000,
-    //     type: TOAST_TYPE.SUCCESS,
-    //     description: 'Vuelve pronto.',
-    //     useDefaultImage: false,
-    //     resource: 'assets/img/pet.png'
-    //   });
-    //   this.router.navigate(['/auth/login']);
-
-    // });
+    this.authService.onLogOut().subscribe(() => {
+      this.toastService.addToast({
+        title: 'Hasta la próxima',
+        timeOut: 3000,
+        type: TOAST_TYPE.SUCCESS,
+        description: 'Vuelve pronto.',
+        useDefaultImage: false,
+        resource: 'assets/img/pet.png'
+      });
+      this.router.navigate(['/auth/login']);
+    });
   }
 
 }

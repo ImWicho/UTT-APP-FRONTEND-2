@@ -11,21 +11,19 @@ export class AuthLoginGuard implements CanActivate, CanLoad {
   constructor(private dataSvc: DataService, private router: Router){}
 
   canLoad(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree{
-    // const isLogged: boolean = this.dataSvc.onCheckStorage(environment.NAME_TOKEN);
-    // if (isLogged){
-    //   this.router.navigate(['/main']);
-    // }
-    // return !isLogged;
-    return true;
+    const isLogged: boolean = this.dataSvc.onCheckStorage(environment.NAME_TOKEN);
+    if (isLogged){
+      this.router.navigate(['/main']);
+    }
+    return !isLogged;
   }
 
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    // const isLogged: boolean = this.dataSvc.onCheckStorage(environment.NAME_TOKEN);
-    // if (isLogged){
-    //   this.router.navigate(['/main']);
-    // }
-    // return !isLogged;
-    return true;
+    const isLogged: boolean = this.dataSvc.onCheckStorage(environment.NAME_TOKEN);
+    if (isLogged){
+      this.router.navigate(['/main']);
+    }
+    return !isLogged;
 
   }
 

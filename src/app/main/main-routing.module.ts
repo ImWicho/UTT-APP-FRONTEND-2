@@ -8,14 +8,12 @@ const routes: Routes = [
   {
     path: '', component: MainComponent,
     children: [
-      { path: 'orders', loadChildren:() => import('./pages/orders/orders.module').then((m) => m.OrdersModule),
+      { path: 'docs', loadChildren:() => import('./pages/doc/doc.module').then((m) => m.DocModule),
+        canLoad: [ AuthGuard, RouteGuard ]
       },
-      { path: 'quizes', loadChildren:() => import('./pages/quizes/quizes.module').then((m) => m.QuizesModule),
-      },
-      { path: 'providers', loadChildren:() => import('./pages/providers/providers.module').then((m) => m.ProvidersModule),
-      },
-      { path: 'results', loadChildren:() => import('./pages/results/results.module').then((m) => m.ResultsModule),
-      },
+      { path: 'request', loadChildren:() => import('./pages/request/request.module').then((m) => m.RequestModule),
+        canLoad: [ AuthGuard, RouteGuard ]
+      }
     ]
   }
 ];

@@ -11,12 +11,11 @@ export class RouteGuard implements CanLoad {
   constructor(private dataSvc: DataService, private router: Router){}
 
   canLoad(route: Route): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    // const isAllowed: boolean = this.dataSvc.isAllowed(route.path);
-    // if(!isAllowed){
-    //   this.router.navigate(['/main']);
-    // }
+    const isAllowed: boolean = this.dataSvc.isAllowed(route.path);
+    if(!isAllowed){
+      this.router.navigate(['/main']);
+    }
 
-    // return isAllowed;
-    return true;
+    return isAllowed;
   }
 }
