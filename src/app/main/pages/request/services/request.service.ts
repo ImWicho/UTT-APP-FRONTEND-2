@@ -13,4 +13,12 @@ export class RequestService {
   onGetRequests(): Observable<any>{
     return this.http.get<any>(`${environment.API_URL}/api/v1/requests`);
   }
+
+  onSaveRequest(data: any): Observable<any>{
+    return this.http.post<any>(`${environment.API_URL}/api/v1/requests`, data);
+  }
+
+  onUpdateRequestStatus(data: any): Observable<any>{
+    return this.http.post<any>(`${environment.API_URL}/api/v1/update-req`, data);
+  }
 }

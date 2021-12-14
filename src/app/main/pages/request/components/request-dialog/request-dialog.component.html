@@ -4,8 +4,42 @@
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <mat-form-field appearance="outline">
-          <mat-label>TEST</mat-label>
-          <input matInput placeholder="TEST" formControlName="test">
+          <mat-label>Documento</mat-label>
+          <mat-select formControlName="documentoId">
+            <mat-option *ngFor="let doc of documents" [value]="doc.id">
+              {{doc.nombre}} - {{ doc.version }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field> 
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input matInput placeholder="Nombre" formControlName="nombre">
+        </mat-form-field>    
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <mat-form-field appearance="outline">
+          <mat-label>Versión</mat-label>
+          <input matInput placeholder="Versión" formControlName="version">
+        </mat-form-field>    
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <mat-form-field appearance="outline">
+          <mat-label>Punto cambio</mat-label>
+          <input matInput placeholder="Punto cambio" formControlName="puntoCambio">
+        </mat-form-field>    
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <mat-form-field appearance="outline">
+          <mat-label>Descripción actual</mat-label>
+          <input matInput placeholder="Descripción actual" formControlName="descripcionActual">
+        </mat-form-field>    
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <mat-form-field appearance="outline">
+          <mat-label>Descripción cambio</mat-label>
+          <input matInput placeholder="Descripción cambio" formControlName="descripcionCambio">
         </mat-form-field>    
       </div>
     </div>
@@ -18,6 +52,7 @@
     color="primary"
     [class.spinner]="isLoading"
     [disabled]="form.invalid || isLoading"
+    (click)="sendData()"
   >
     Aceptar
   </button>

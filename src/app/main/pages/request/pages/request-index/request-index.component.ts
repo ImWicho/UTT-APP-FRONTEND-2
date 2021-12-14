@@ -1,7 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { TOAST_TYPE } from '@components/toast/i-toast';
 import { Store } from '@ngrx/store';
 import { DialogService } from '@services/dialog.service';
 import { NotificationService } from '@services/notification.service';
@@ -19,7 +21,7 @@ import { RequestService } from '../../services/request.service';
 export class RequestIndexComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  displayedColumns: string[] = ['id', 'name', 'statusName', 'options'];
+  displayedColumns: string[] = ['id', 'nombre', 'version','punto_cambio' , 'descripcion_actual','descripcion_cambio','status','options'];
   dataSource!: MatTableDataSource<any>;
   requests = [];
   user!: IUser | null;
@@ -35,13 +37,40 @@ export class RequestIndexComponent implements OnInit, OnDestroy {
   }
 
   async openDialog(): Promise<void>{
-    if(await this.dialogService.onShowDialog(RequestDialogComponent, { width: 500 }).toPromise()){
-      console.log(true);
+    if(await this.dialogService.onShowDialog(RequestDialogComponent, { width: 800 }).toPromise()){
+      this.onGetDocs();
     }
   }
 
   ngOnDestroy(): void{
     this.subs.unsubscribe();
+  }
+
+  async updateStatus(element: any): Promise<void>{
+    if(await this.dialogService.onShowConfirmation(
+      {
+        title: '¿Estás seguro de aprovar el documento?',
+        desc: 'El documento cambiará a Aprovado',
+        icon : 'alert-circle-outline'
+      }).toPromise()){
+        this.service.onUpdateRequestStatus(
+            { requestId: element.id, status : 'approved', docId: element.documento_id }
+          ).subscribe((res) => {
+          this.onGetDocs();
+          this.notificationService.onShowNotification({
+            title: 'Solicitud actualizada',
+            desc: `La solicitud se ha actualizado correctamente.`,
+            type: TOAST_TYPE.SUCCESS
+          });
+        }, (error: HttpErrorResponse)=>{
+          this.notificationService.onShowNotification({
+            title: 'Ocurrió un error',
+            desc: 'Intente más tarde o contacte a soporte.',
+            type: TOAST_TYPE.DANGER
+          });
+        });
+
+      }
   }
 
   onGetDocs(): void{
