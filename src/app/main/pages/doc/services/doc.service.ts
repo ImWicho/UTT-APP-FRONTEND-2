@@ -17,4 +17,8 @@ export class DocService {
   onSaveDocument(data: any): Observable<any>{
     return this.http.post<any>(`${environment.API_URL}/api/v1/docs`, data);
   }
+
+  onUpdateDocumentStatus(data: any): Observable<any>{
+    return this.http.post<any>(`${environment.API_URL}/api/v1/update-doc`, data);
+  }
 }

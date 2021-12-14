@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -42,9 +43,35 @@ export class DocIndexComponent implements OnInit, OnDestroy {
 
   async openDialog(): Promise<void>{
     if(await this.dialogService.onShowDialog(DocDialogComponent, { width: 800 }).toPromise()){
-      console.log(true);
       this.onGetDocs();
     }
+  }
+
+  async updateStatus(element: any): Promise<void>{
+    if(await this.dialogService.onShowConfirmation(
+      {
+        title: '¿Estás seguro de aprovar el documento?',
+        desc: 'El documento cambiará a Aprovado',
+        icon : 'alert-circle-outline'
+      }).toPromise()){
+        this.service.onUpdateDocumentStatus(
+            { docId: element.id, status : element.status === 'pendient' ? 'approved' : 'pendient' }
+          ).subscribe((res) => {
+          this.onGetDocs();
+          this.notificationService.onShowNotification({
+            title: 'Documento actualizado',
+            desc: `El documento se ha actualizado correctamente.`,
+            type: TOAST_TYPE.SUCCESS
+          });
+        }, (error: HttpErrorResponse)=>{
+          this.notificationService.onShowNotification({
+            title: 'Ocurrió un error',
+            desc: 'Intente más tarde o contacte a soporte.',
+            type: TOAST_TYPE.DANGER
+          });
+        });
+
+      }
   }
 
   onGetDocs(): void{

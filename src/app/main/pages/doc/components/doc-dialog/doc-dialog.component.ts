@@ -33,8 +33,8 @@ export class DocDialogComponent implements OnInit {
 
     this.service.onSaveDocument(data).subscribe((res) => {
       this.notificationService.onShowNotification({
-        title: 'Proveedor evaluado',
-        desc: 'El proveedor ha sido evaluado correctamente.',
+        title: 'Documento creado',
+        desc: 'El documento se ha creado correctamente.',
         type: TOAST_TYPE.SUCCESS
       });
       this.dialog.close(true);
